@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
 import { AppResponse } from "@helpers/responseParser";
-import { IRequestUpdateUser } from "@modules/users/dto/users";
+import { IRequestUpdateUser } from "@modules/users/dtos/users";
 import { IUsersRepositories } from "@modules/users/iRepositories/iUsersRepositories";
 import { UuidProvider } from "@shared/container/providers/uuidProvider/implementation/UuidProvider";
 import { AppError } from "@helpers/errorsHandler";
