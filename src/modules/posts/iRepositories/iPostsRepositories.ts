@@ -6,6 +6,7 @@ interface IPostsRepositories {
   count(): Promise<number>;
   listById(id: string): Promise<IPost | null>;
   update(data: IUpdatePost): Promise<void>;
+  delete(id: string): Promise<void>;
 }
 
 export { IPostsRepositories };
