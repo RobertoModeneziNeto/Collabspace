@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
+import { ICommentsRepositories } from "@modules/comments/iRepositories/ICommentsRepositories";
+import { IUuidProvider } from "@shared/container/providers/uuidProvider/IUuidProvider";
+import { IRequestUpdateComment } from "@modules/comments/dtos/comments";
 import { AppResponse } from "@helpers/responseParser";
-import { ICommentsRepositories } from "@modules/comments/iRepositories/iCommentsRepositories";
-import { UuidProvider } from "@shared/container/providers/uuidProvider/implementation/UuidProvider";
-import { IRequestUpdateComment } from "@modules/comments/dto/comments";
 import { AppError } from "@helpers/errorsHandler";
 
 interface IRequest extends IRequestUpdateComment {
@@ -16,13 +16,13 @@ class UpdateCommentUseCase {
     @inject("CommentRepository")
     private commentRepository: ICommentsRepositories,
     @inject("UuidProvider")
-    private uuidProvider: UuidProvider
+    private uuidProvider: IUuidProvider
   ) {}
 
   async execute({ id, usrId, content }: IRequest): Promise<AppResponse> {
     if (!this.uuidProvider.validateUUID(id)) {
       throw new AppError({
-        message: "ID é invalido!",
+        message: "ID é inválido!",
       });
     }
 

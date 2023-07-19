@@ -1,4 +1,4 @@
-import { IComment, ICreateComment, IUpdateComment } from "../dto/comments";
+import { IComment, ICreateComment, IUpdateComment } from "../dtos/comments";
 
 interface ICommentsRepositories {
   create(comment: ICreateComment): Promise<IComment>;

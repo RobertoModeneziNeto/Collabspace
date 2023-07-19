@@ -1,8 +1,8 @@
 import { AppError } from "@helpers/errorsHandler";
 import { AppResponse } from "@helpers/responseParser";
-import { ICommentsRepositories } from "@modules/comments/iRepositories/iCommentsRepositories";
-import { IPostsRepositories } from "@modules/posts/iRepositories/iPostsRepositories";
-import { UuidProvider } from "@shared/container/providers/uuidProvider/implementation/UuidProvider";
+import { ICommentsRepositories } from "@modules/comments/iRepositories/ICommentsRepositories";
+import { IPostsRepositories } from "@modules/posts/iRepositories/IPostsRepositories";
+import { IUuidProvider } from "@shared/container/providers/uuidProvider/IUuidProvider";
 import { inject, injectable } from "tsyringe";
 
 interface IRequest {
@@ -19,7 +19,7 @@ class DeleteCommentUseCase {
     @inject("PostRepository")
     private postRepository: IPostsRepositories,
     @inject("UuidProvider")
-    private uuidProvider: UuidProvider
+    private uuidProvider: IUuidProvider
   ) {}
 
   async execute({ usrId, postId, id }: IRequest): Promise<AppResponse> {

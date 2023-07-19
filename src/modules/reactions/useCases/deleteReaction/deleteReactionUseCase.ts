@@ -1,8 +1,8 @@
-import { inject, injectable } from "tsyringe";
-import { IPostsRepositories } from "@modules/posts/iRepositories/IPostsRepositories";
-import { IUuidProvider } from "@shared/container/providers/uuidProvider/IUuidProvider";
-import { AppResponse } from "@helpers/responseParser";
 import { AppError } from "@helpers/errorsHandler";
+import { AppResponse } from "@helpers/responseParser";
+import { IReactionsRepositories } from "@modules/reactions/iRepositories/IReactionsRepositories";
+import { IUuidProvider } from "@shared/container/providers/uuidProvider/IUuidProvider";
+import { inject, injectable } from "tsyringe";
 
 interface IRequest {
   usrId: string;
@@ -10,10 +10,10 @@ interface IRequest {
 }
 
 @injectable()
-class DeletePostUseCase {
+class DeleteReactionUseCase {
   constructor(
-    @inject("PostRepository")
-    private postRepository: IPostsRepositories,
+    @inject("ReactionRepository")
+    private reactionRepository: IReactionsRepositories,
     @inject("UuidProvider")
     private uuidProvider: IUuidProvider
   ) {}
@@ -25,11 +25,11 @@ class DeletePostUseCase {
       });
     }
 
-    const listById = await this.postRepository.listById(id);
+    const listById = await this.reactionRepository.listById(id);
 
     if (!listById) {
       throw new AppError({
-        message: "Post não encontrado!",
+        message: "Reação não encontrada!",
       });
     }
 
@@ -40,12 +40,12 @@ class DeletePostUseCase {
       });
     }
 
-    await this.postRepository.delete(id);
+    await this.reactionRepository.delete(id);
 
     return new AppResponse({
-      message: "Post deletado com sucesso!",
+      message: "Reação removida com sucesso!",
     });
   }
 }
 
-export { DeletePostUseCase };
+export { DeleteReactionUseCase };
