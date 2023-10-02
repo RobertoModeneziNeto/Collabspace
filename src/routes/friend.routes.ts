@@ -17,7 +17,7 @@ friendRoutes.get(
   new ListAllRequestsByUserController().handle
 );
 friendRoutes.get(
-  "/listAllFriends",
+  "/listAllFriends/:id",
   new ListAllFriendsByUserController().handle
 );
 friendRoutes.post("/:targetId", new CreateFriendController().handle);
