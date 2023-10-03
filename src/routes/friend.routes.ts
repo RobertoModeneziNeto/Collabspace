@@ -13,7 +13,7 @@ const friendRoutes = Router();
 friendRoutes.use(authentication);
 
 friendRoutes.get(
-  "/listAllRequests",
+  "/listAllRequests/:id",
   new ListAllRequestsByUserController().handle
 );
 friendRoutes.get(
