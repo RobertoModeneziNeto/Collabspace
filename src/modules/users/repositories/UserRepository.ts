@@ -5,6 +5,7 @@ import {
   IUpdateUser,
   IUpdateUserAvatar,
   IUpdateUserCover,
+  IUpdateUserPassword,
   IUser,
 } from "@modules/users/dtos/users";
 import { IUsersRepositories } from "@modules/users/iRepositories/IUsersRepositories";
@@ -74,6 +75,15 @@ class UserRepository implements IUsersRepositories {
       where: { id },
       data: {
         cover_url: coverUrl,
+      },
+    });
+  }
+
+  async updatePassword({ id, password }: IUpdateUserPassword): Promise<void> {
+    await prisma.users.update({
+      where: { id },
+      data: {
+        password,
       },
     });
   }

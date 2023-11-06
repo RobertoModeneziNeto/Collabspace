@@ -64,6 +64,15 @@ interface IUpdateUserCover {
   coverUrl: string;
 }
 
+interface IRequestUpdateUserPassword {
+  password: string;
+}
+
+interface IUpdateUserPassword {
+  id: string;
+  password: string;
+}
+
 export {
   IUser,
   ICreateUser,
@@ -74,4 +83,6 @@ export {
   IUpdateUserAvatar,
   IRequestUpdateUserCover,
   IUpdateUserCover,
+  IRequestUpdateUserPassword,
+  IUpdateUserPassword,
 };
