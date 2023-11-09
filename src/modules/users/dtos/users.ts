@@ -65,7 +65,8 @@ interface IUpdateUserCover {
 }
 
 interface IRequestUpdateUserPassword {
-  password: string;
+  currentPassword: string;
+  newPassword: string;
 }
 
 interface IUpdateUserPassword {

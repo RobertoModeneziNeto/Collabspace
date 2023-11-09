@@ -18,10 +18,14 @@ class UpdatePasswordUseCase {
     private bcryptProvider: IBcryptProvider
   ) {}
 
-  async execute({ usrId, password }: IRequest): Promise<AppResponse> {
-    if (password)
+  async execute({
+    usrId,
+    currentPassword,
+    newPassword,
+  }: IRequest): Promise<AppResponse> {
+    if (newPassword)
       if (
-        !password.match(
+        !newPassword.match(
           /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
         )
       ) {
@@ -30,7 +34,37 @@ class UpdatePasswordUseCase {
         });
       }
 
-    const passwordHash = await this.bcryptProvider.encryptPassword(password);
+    const listUserById = await this.userRepository.listById(usrId);
+
+    if (!listUserById) {
+      throw new AppError({
+        message: "Usuário Inválido!",
+      });
+    }
+
+    const passwordMatch = await this.bcryptProvider.checkPassword(
+      currentPassword,
+      listUserById.password
+    );
+
+    if (!passwordMatch) {
+      throw new AppError({
+        message: "Senha Atual incorreta!",
+      });
+    }
+
+    const isSamePassword = await this.bcryptProvider.checkPassword(
+      newPassword,
+      listUserById.password
+    );
+
+    if (isSamePassword) {
+      throw new AppError({
+        message: "As senhas são iguais!",
+      });
+    }
+
+    const passwordHash = await this.bcryptProvider.encryptPassword(newPassword);
 
     await this.userRepository.updatePassword({
       id: usrId,

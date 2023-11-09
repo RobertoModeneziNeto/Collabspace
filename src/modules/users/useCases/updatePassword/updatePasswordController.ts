@@ -7,13 +7,15 @@ class UpdatePasswordController {
   async handle(req: Request, res: Response) {
     const { usrId } = req;
 
-    const { password } = req.body as IRequestUpdateUserPassword;
+    const { currentPassword, newPassword } =
+      req.body as IRequestUpdateUserPassword;
 
     const updatePasswordUseCase = container.resolve(UpdatePasswordUseCase);
 
     const result = await updatePasswordUseCase.execute({
       usrId,
-      password,
+      currentPassword,
+      newPassword,
     });
 
     return res.status(result.statusCode).json(result);
