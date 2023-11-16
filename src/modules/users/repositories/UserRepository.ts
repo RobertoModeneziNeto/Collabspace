@@ -34,6 +34,30 @@ class UserRepository implements IUsersRepositories {
   listByEmail(email: string): Promise<IUser | null> {
     return prisma.users.findFirst({
       where: { email: { equals: email } },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        telephone: true,
+        password: true,
+        birth_date: true,
+        avatar_url: true,
+        cover_url: true,
+        bio: true,
+        created_at: true,
+        active: true,
+        address: {
+          select: {
+            id: true,
+            user_id: true,
+            cep: true,
+            country: true,
+            province: true,
+            city: true,
+            street: true,
+          },
+        },
+      },
     });
   }
 
@@ -50,6 +74,14 @@ class UserRepository implements IUsersRepositories {
     birthDate,
     bio,
   }: IUpdateUser): Promise<void> {
+    console.log({
+      id,
+      name,
+      telephone,
+      birthDate,
+      bio,
+    });
+
     await prisma.users.update({
       where: { id },
       data: {

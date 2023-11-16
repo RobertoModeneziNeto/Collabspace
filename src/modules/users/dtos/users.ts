@@ -1,3 +1,5 @@
+import { IAddress } from "@modules/address/dtos/address";
+
 interface IUser {
   id: string;
   name: string;
@@ -10,6 +12,7 @@ interface IUser {
   bio: string | null;
   created_at: Date;
   active: boolean;
+  address?: IAddress[];
 }
 
 interface IRequestCreateUser {
