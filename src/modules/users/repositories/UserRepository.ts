@@ -98,14 +98,6 @@ class UserRepository implements IUsersRepositories {
     birthDate,
     bio,
   }: IUpdateUser): Promise<void> {
-    console.log({
-      id,
-      name,
-      telephone,
-      birthDate,
-      bio,
-    });
-
     await prisma.users.update({
       where: { id },
       data: {
